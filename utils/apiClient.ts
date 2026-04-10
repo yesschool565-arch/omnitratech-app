@@ -4,7 +4,9 @@
  * The backend proxies requests to WordPress REST API
  */
 
-const API_BASE_URL = process.env.VITE_API_URL || '/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL && import.meta.env.VITE_API_URL !== 'http://localhost:3001/api' 
+  ? import.meta.env.VITE_API_URL 
+  : '/api';
 
 // Types (matching backend data models)
 export interface ServiceFeature {

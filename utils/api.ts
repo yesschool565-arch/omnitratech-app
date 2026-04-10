@@ -3,7 +3,25 @@
 // ============================================================
 
 // Use VITE_API_URL in production, default to /api for local development
-const API_BASE = import.meta.env.VITE_API_URL || '/api';
+// In production (Vercel), VITE_API_URL must be set to the backend URL
+const API_BASE = (() => {
+  const envUrl = import.meta.env.VITE_API_URL;
+  
+  // If running in production (not localhost), use full URL from env
+  if (typeof window !== 'undefined' && !window.location.hostname.includes('localhost')) {
+    // If env is set and different from default, use it
+    if (envUrl && envUrl !== 'http://localhost:3001/api') {
+      console.log('[API Config] Using production backend:', envUrl.replace(/\/api$/, ''));
+      return envUrl;
+    }
+    // Otherwise fallback to same domain
+    console.warn('[API Config] VITE_API_URL not set for production. Using /api proxy.');
+    return '/api';
+  }
+  
+  // Development: use env or default
+  return envUrl || '/api';
+})();
 
 const getToken = (): string | null => localStorage.getItem('omnitratech_admin_token');
 
@@ -22,7 +40,11 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const res = await fetch(`${API_BASE}${path}`, {
+  // Ensure path doesn't have double slashes
+  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  const url = `${API_BASE}${cleanPath}`;
+
+  const res = await fetch(url, {
     ...options,
     headers
   });
