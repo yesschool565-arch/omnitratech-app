@@ -18,15 +18,35 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-// Support both FRONTEND_URL and CORS_ORIGIN for flexibility
-const CORS_ORIGIN = process.env.CORS_ORIGIN || process.env.FRONTEND_URL || 'http://localhost:5175';
+
+// CORS configuration - accept requests from multiple origins
+const allowedOrigins = [
+  'http://localhost:5175',      // Local development
+  'http://localhost:3000',      // Alternative local port
+  'https://omnitratech-app.vercel.app',  // Vercel production
+  'https://16523707-c83d-4a58-bfd3-b37d1ee6a655-00-av1910ck9ero.pike.replit.dev',  // Replit frontend
+  process.env.CORS_ORIGIN,      // Environment variable override
+  process.env.FRONTEND_URL      // Alternative env variable
+].filter(Boolean); // Remove undefined values
 
 // Middleware
 app.use(cors({
-  origin: CORS_ORIGIN,
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      // Log unauthorized CORS attempts
+      console.warn(`[CORS] Blocked request from origin: ${origin}`);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  maxAge: 86400 // 24 hours
 }));
 
 app.use(express.json());
