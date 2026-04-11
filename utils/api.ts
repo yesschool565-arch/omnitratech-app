@@ -6,21 +6,9 @@
 // In production (Vercel), VITE_API_URL must be set to the backend URL
 const API_BASE = (() => {
   const envUrl = import.meta.env.VITE_API_URL;
-  
-  // If running in production (not localhost), use full URL from env
-  if (typeof window !== 'undefined' && !window.location.hostname.includes('localhost')) {
-    // If env is set and different from default, use it
-    if (envUrl && envUrl !== 'http://localhost:3001/api') {
-      console.log('[API Config] Using production backend:', envUrl.replace(/\/api$/, ''));
-      return envUrl;
-    }
-    // Otherwise fallback to same domain
-    console.warn('[API Config] VITE_API_URL not set for production. Using /api proxy.');
-    return '/api';
-  }
-  
-  // Development: use env or default
-  return envUrl || '/api';
+  const baseUrl = envUrl || '/api';
+  console.log('[API Config] API Base URL:', baseUrl);
+  return baseUrl;
 })();
 
 const getToken = (): string | null => localStorage.getItem('omnitratech_admin_token');

@@ -243,22 +243,15 @@ const defaultFooterLinks: FooterLinkModel[] = [
 function createAPIHelper<T extends { id: string }>(endpoint: string, staticDataFile: string, fallbackData: T[]) {
   return {
     getAll: async (): Promise<T[]> => {
+      // Try API endpoint first
       try {
-        // First try to fetch from static JSON file
-        const response = await fetch(staticDataFile);
-        if (response.ok) {
-          console.log(`[CMS] Loaded ${staticDataFile} from static files`);
-          return await response.json();
-        }
+        console.log(`[CMS] Fetching ${endpoint} from API...`);
+        const data = await api.get<T[]>(endpoint);
+        console.log(`[CMS] ✅ Successfully loaded from ${endpoint}:`, data);
+        return data;
       } catch (err) {
-        console.warn(`[CMS] Static file ${staticDataFile} not found, trying API...`);
-      }
-
-      try {
-        // Try API endpoint as secondary source
-        return await api.get<T[]>(endpoint);
-      } catch (err) {
-        console.warn(`API ${endpoint} unavailable, using defaults:`, err);
+        console.warn(`[CMS] ❌ API ${endpoint} failed:`, err);
+        console.log(`[CMS] Using fallback data for ${endpoint}`);
         return fallbackData;
       }
     },
