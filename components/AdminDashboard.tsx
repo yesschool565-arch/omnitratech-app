@@ -303,6 +303,72 @@ const AdminDashboard: React.FC = () => {
     }
   };
 
+  // Delete handlers
+  const handleDeleteService = async (id: string) => {
+    if (!confirm('Delete this service?')) return;
+    try {
+      await CMSServices.remove(id);
+      const updatedServices = await CMSServices.getAll();
+      setServices(updatedServices);
+      alert('Service deleted successfully!');
+    } catch (error) {
+      console.error('Error deleting service:', error);
+      alert('Failed to delete service. Please try again.');
+    }
+  };
+
+  const handleDeleteResource = async (id: string) => {
+    if (!confirm('Delete this resource?')) return;
+    try {
+      await CMSResources.remove(id);
+      const updatedResources = await CMSResources.getAll();
+      setResources(updatedResources);
+      alert('Resource deleted successfully!');
+    } catch (error) {
+      console.error('Error deleting resource:', error);
+      alert('Failed to delete resource. Please try again.');
+    }
+  };
+
+  const handleDeleteJob = async (id: string) => {
+    if (!confirm('Delete this job?')) return;
+    try {
+      await CMSJobs.remove(id);
+      const updatedJobs = await CMSJobs.getAll();
+      setJobs(updatedJobs);
+      alert('Job deleted successfully!');
+    } catch (error) {
+      console.error('Error deleting job:', error);
+      alert('Failed to delete job. Please try again.');
+    }
+  };
+
+  const handleDeleteIndustry = async (id: string) => {
+    if (!confirm('Delete this industry?')) return;
+    try {
+      await CMSIndustries.remove(id);
+      const updatedIndustries = await CMSIndustries.getAll();
+      setIndustries(updatedIndustries);
+      alert('Industry deleted successfully!');
+    } catch (error) {
+      console.error('Error deleting industry:', error);
+      alert('Failed to delete industry. Please try again.');
+    }
+  };
+
+  const handleDeleteFooterLink = async (id: string) => {
+    if (!confirm('Remove this link?')) return;
+    try {
+      await CMSFooterLinks.remove(id);
+      const updatedLinks = await CMSFooterLinks.getAll();
+      setFooterLinks(updatedLinks);
+      alert('Link removed successfully!');
+    } catch (error) {
+      console.error('Error deleting link:', error);
+      alert('Failed to remove link. Please try again.');
+    }
+  };
+
   const autoGenerateUrl = (label: string, column: string) => {
     if (!label) return '';
     const slug = label.trim().toLowerCase().replace(/ /g, '-').replace(/[^a-z0-9-]/g, '');
@@ -499,7 +565,7 @@ const AdminDashboard: React.FC = () => {
             </div>
             <div className="flex gap-2">
                 <button onClick={() => handleEditService(item)} className="p-2 text-brand-600 hover:bg-brand-50 rounded-lg"><Edit3 size={18}/></button>
-                <button onClick={() => { if(confirm('Delete?')) { CMSServices.remove(item.id); setServices(CMSServices.getAll()); } }} className="p-2 text-red-500 hover:bg-red-50 rounded-lg"><Trash2 size={18}/></button>
+                <button onClick={() => handleDeleteService(item.id)} className="p-2 text-red-500 hover:bg-red-50 rounded-lg"><Trash2 size={18}/></button>
             </div>
           </li>
         ))}
@@ -554,7 +620,7 @@ const AdminDashboard: React.FC = () => {
             </div>
             <div className="flex gap-2">
                 <button onClick={() => handleEditResource(item)} className="p-2 text-brand-600 hover:bg-brand-50 rounded-lg"><Edit3 size={18}/></button>
-                <button onClick={() => { if(confirm('Delete?')) { CMSResources.remove(item.id); setResources(CMSResources.getAll()); } }} className="p-2 text-red-500 hover:bg-red-50 rounded-lg"><Trash2 size={18}/></button>
+                <button onClick={() => handleDeleteResource(item.id)} className="p-2 text-red-500 hover:bg-red-50 rounded-lg"><Trash2 size={18}/></button>
             </div>
           </li>
         ))}
@@ -613,7 +679,7 @@ const AdminDashboard: React.FC = () => {
             </div>
             <div className="flex gap-2">
                 <button onClick={() => handleEditJob(item)} className="p-2 text-brand-600 hover:bg-brand-50 rounded-lg"><Edit3 size={18}/></button>
-                <button onClick={() => { if(confirm('Delete?')) { CMSJobs.remove(item.id); setJobs(CMSJobs.getAll()); } }} className="p-2 text-red-500 hover:bg-red-50 rounded-lg"><Trash2 size={18}/></button>
+                <button onClick={() => handleDeleteJob(item.id)} className="p-2 text-red-500 hover:bg-red-50 rounded-lg"><Trash2 size={18}/></button>
             </div>
           </li>
         ))}
@@ -715,7 +781,7 @@ const AdminDashboard: React.FC = () => {
             </div>
             <div className="flex gap-2">
                 <button onClick={() => handleEditIndustry(item)} className="p-2 text-brand-600 hover:bg-brand-50 rounded-lg"><Edit3 size={18}/></button>
-                <button onClick={() => { if(confirm('Are you sure you want to delete this industry?')) { CMSIndustries.remove(item.id); setIndustries(CMSIndustries.getAll()); } }} className="p-2 text-red-500 hover:bg-red-50 rounded-lg"><Trash2 size={18}/></button>
+                <button onClick={() => handleDeleteIndustry(item.id)} className="p-2 text-red-500 hover:bg-red-50 rounded-lg"><Trash2 size={18}/></button>
             </div>
           </li>
         ))}
@@ -783,7 +849,7 @@ const AdminDashboard: React.FC = () => {
                 </div>
                 <div className="flex gap-1">
                     <button onClick={() => handleEditFooterLink(item)} className="p-1.5 text-brand-600 hover:bg-brand-50 rounded-lg"><Edit3 size={14}/></button>
-                    <button onClick={() => { if(confirm('Remove this link?')) { CMSFooterLinks.remove(item.id); setFooterLinks(CMSFooterLinks.getAll()); } }} className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg"><Trash2 size={14}/></button>
+                    <button onClick={() => handleDeleteFooterLink(link.id)} className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg"><Trash2 size={14}/></button>
                 </div>
             </li>
             ))}
