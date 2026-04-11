@@ -207,6 +207,7 @@ const defaultIndustries: IndustryModel[] = [
     benefits: ['Project Management', 'Cost Control', 'Safety Management', 'Quality Assurance'],
     features: [{ title: 'BIM', desc: 'Building Information Modeling systems', iconName: 'Building2' }, { title: 'Collaboration', desc: 'Team collaboration and communication tools', iconName: 'Users' }, { title: 'Compliance', desc: 'Safety and compliance management', iconName: 'CheckCircle' }]
   }
+];
 
 const defaultResources: ResourceModel[] = [
   { id: '1', title: "The Future of Industrial AI", category: "AI & ML", format: "PDF Guide", date: "Oct 24", readTime: "15 min" }
@@ -240,18 +241,13 @@ const defaultFooterLinks: FooterLinkModel[] = [
 // Async API-backed CMS helpers (with fallback to defaults)
 // ============================================================
 
-function createAPIHelper<T extends { id: string }>(endpoint: string, staticDataFile: string, fallbackData: T[]) {
+function createAPIHelper<T extends { id: string }>(endpoint: string, fallbackData: T[]) {
   return {
     getAll: async (): Promise<T[]> => {
-      // Try API endpoint first
       try {
-        console.log(`[CMS] Fetching ${endpoint} from API...`);
-        const data = await api.get<T[]>(endpoint);
-        console.log(`[CMS] ✅ Successfully loaded from ${endpoint}:`, data);
-        return data;
+        return await api.get<T[]>(endpoint);
       } catch (err) {
-        console.warn(`[CMS] ❌ API ${endpoint} failed:`, err);
-        console.log(`[CMS] Using fallback data for ${endpoint}`);
+        console.warn(`API ${endpoint} unavailable, using defaults:`, err);
         return fallbackData;
       }
     },
@@ -267,8 +263,8 @@ function createAPIHelper<T extends { id: string }>(endpoint: string, staticDataF
   };
 }
 
-export const CMSServices = createAPIHelper<ServiceModel>('/services', '/data/services.json', defaultServices);
-export const CMSResources = createAPIHelper<ResourceModel>('/resources', '/data/resources.json', defaultResources);
-export const CMSJobs = createAPIHelper<JobModel>('/jobs', '/data/jobs.json', defaultJobs);
-export const CMSIndustries = createAPIHelper<IndustryModel>('/industries', '/data/industries.json', defaultIndustries);
-export const CMSFooterLinks = createAPIHelper<FooterLinkModel>('/footer-links', '/data/footer-links.json', defaultFooterLinks);
+export const CMSServices = createAPIHelper<ServiceModel>('/services', defaultServices);
+export const CMSResources = createAPIHelper<ResourceModel>('/resources', defaultResources);
+export const CMSJobs = createAPIHelper<JobModel>('/jobs', defaultJobs);
+export const CMSIndustries = createAPIHelper<IndustryModel>('/industries', defaultIndustries);
+export const CMSFooterLinks = createAPIHelper<FooterLinkModel>('/footer-links', defaultFooterLinks);

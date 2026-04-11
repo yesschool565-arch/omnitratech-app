@@ -36,8 +36,16 @@ const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link to="/" className="group hover:opacity-80 transition-opacity">
-            <Logo size="md" />
+          <Link to="/" className="flex items-center gap-3 group">
+            <Logo className="h-14 w-14" />
+            <div className="flex flex-col">
+              <span className="text-2xl font-bold text-slate-900 leading-none tracking-tight group-hover:text-brand-600 transition-colors">
+                OMNITRA
+              </span>
+              <span className="text-xs font-semibold text-brand-600 tracking-widest uppercase">
+                Tech Services
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Menu */}

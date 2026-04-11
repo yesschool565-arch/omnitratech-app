@@ -21,9 +21,12 @@ const mainIconMap: Record<string, React.ReactNode> = {
     Factory: <Factory className="w-12 h-12" />,
     GitBranch: <GitBranch className="w-12 h-12" />,
     Megaphone: <Megaphone className="w-12 h-12" />,
-    Building2: <Building2 className="w-12 h-12" />,
     AlertTriangle: <AlertTriangle className="w-12 h-12" />,
     Code: <Code className="w-12 h-12" />,
+    Wrench: <Wrench className="w-12 h-12" />,
+    TrendingUp: <TrendingUp className="w-12 h-12" />,
+    Hammer: <Hammer className="w-12 h-12" />,
+    Headphones: <Headphones className="w-12 h-12" />,
 };
 
 const featureIconMap: Record<string, React.ReactNode> = {
