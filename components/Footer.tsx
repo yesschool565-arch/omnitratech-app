@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
           {/* Brand Column */}
           <div className="space-y-4">
             <div className="mb-6">
-              <Logo className="h-16 w-auto object-contain" />
+              <Logo className="h-16 w-16" />
             </div>
             <p className="text-sm leading-relaxed text-slate-400 text-justify">
               {settings.footerDescription}

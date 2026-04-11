@@ -1,127 +1,118 @@
 import React from 'react';
 
-const Logo: React.FC<{ className?: string }> = ({ className = "h-14 w-auto" }) => {
+const Logo: React.FC<{ className?: string }> = ({ className = "h-14 w-14" }) => {
   return (
-    <div className={`flex items-center justify-center ${className}`}>
-      <svg
-        viewBox="0 0 56 56"
-        className="w-full h-full"
+    <svg
+      viewBox="0 0 64 64"
+      className={className}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      {/* Background Circle */}
+      <circle
+        cx="32"
+        cy="32"
+        r="30"
+        fill="#f0f9ff"
+      />
+
+      {/* Outer Border Circle */}
+      <circle
+        cx="32"
+        cy="32"
+        r="30"
+        stroke="#0284c7"
+        strokeWidth="2"
+      />
+
+      {/* Top Left Square - Tech Symbol */}
+      <rect
+        x="14"
+        y="14"
+        width="10"
+        height="10"
+        fill="#0284c7"
+        rx="2"
+      />
+
+      {/* Top Right Circle */}
+      <circle
+        cx="50"
+        cy="20"
+        r="5"
+        fill="#0ea5e9"
+      />
+
+      {/* Main Center Circle (Core) */}
+      <circle
+        cx="32"
+        cy="32"
+        r="12"
         fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        {/* Outer Circle Border */}
-        <circle
-          cx="28"
-          cy="28"
-          r="24"
-          stroke="#0c4a6e"
-          strokeWidth="1.5"
-          opacity="0.3"
-        />
+        stroke="#075985"
+        strokeWidth="2.5"
+      />
 
-        {/* Top Left Corner - Tech Square */}
-        <rect
-          x="10"
-          y="10"
-          width="8"
-          height="8"
-          fill="#0284c7"
-          rx="1.5"
-        />
+      {/* Center Dot */}
+      <circle
+        cx="32"
+        cy="32"
+        r="4"
+        fill="#0284c7"
+      />
 
-        {/* Top Right Corner - Smaller Tech Square */}
-        <rect
-          x="38"
-          y="10"
-          width="6"
-          height="6"
-          fill="#0ea5e9"
-          rx="1"
-          opacity="0.8"
-        />
+      {/* Bottom Left Tech Line */}
+      <line
+        x1="16"
+        y1="48"
+        x2="28"
+        y2="48"
+        stroke="#0ea5e9"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+      />
 
-        {/* Center Large Circle (O) */}
-        <circle
-          cx="28"
-          cy="28"
-          r="10"
-          fill="none"
-          stroke="#075985"
-          strokeWidth="2"
-        />
+      {/* Bottom Right Square */}
+      <rect
+        x="44"
+        y="46"
+        width="8"
+        height="8"
+        fill="#0284c7"
+        rx="1.5"
+      />
 
-        {/* Inner Dot */}
-        <circle
-          cx="28"
-          cy="28"
-          r="3"
-          fill="#0284c7"
-        />
+      {/* Connection Lines showing network */}
+      <line
+        x1="22"
+        y1="24"
+        x2="28"
+        y2="32"
+        stroke="#0284c7"
+        strokeWidth="2"
+        opacity="0.7"
+        strokeLinecap="round"
+      />
+      <line
+        x1="36"
+        y1="32"
+        x2="42"
+        y2="38"
+        stroke="#0284c7"
+        strokeWidth="2"
+        opacity="0.7"
+        strokeLinecap="round"
+      />
 
-        {/* Bottom Left Accent Line */}
-        <line
-          x1="12"
-          y1="42"
-          x2="20"
-          y2="42"
-          stroke="#0ea5e9"
-          strokeWidth="2"
-          strokeLinecap="round"
-          opacity="0.7"
-        />
-
-        {/* Bottom Right Accent */}
-        <rect
-          x="38"
-          y="40"
-          width="4"
-          height="4"
-          fill="#0284c7"
-          opacity="0.6"
-          rx="0.5"
-        />
-
-        {/* Tech Lines - Representing connectivity */}
-        <line
-          x1="18"
-          y1="24"
-          x2="24"
-          y2="28"
-          stroke="#0284c7"
-          strokeWidth="1.5"
-          opacity="0.5"
-          strokeLinecap="round"
-        />
-        <line
-          x1="32"
-          y1="28"
-          x2="38"
-          y2="32"
-          stroke="#0284c7"
-          strokeWidth="1.5"
-          opacity="0.5"
-          strokeLinecap="round"
-        />
-
-        {/* Top accent gradient effect using multiple circles */}
-        <circle
-          cx="28"
-          cy="16"
-          r="2"
-          fill="#0ea5e9"
-          opacity="0.6"
-        />
-
-        {/* Bottom accent */}
-        <circle
-          cx="28"
-          cy="40"
-          r="2"
-          fill="#0284c7"
-          opacity="0.7"
-        />
-      </svg>
-    </div>
+      {/* Top accent dot */}
+      <circle
+        cx="32"
+        cy="16"
+        r="2.5"
+        fill="#0ea5e9"
+      />
+    </svg>
   );
 };
 

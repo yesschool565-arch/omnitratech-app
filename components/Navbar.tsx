@@ -38,7 +38,7 @@ const Navbar: React.FC = () => {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-3 group">
-              <Logo className="h-14 w-auto object-contain" />
+              <Logo className="h-14 w-14" />
               <div className="flex flex-col">
                 <span className="text-2xl font-bold text-slate-900 leading-none tracking-tight group-hover:text-brand-600 transition-colors">
                   OMNITRA
